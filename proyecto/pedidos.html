@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos - Sabor Rodríguez</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding-top: 60px;
+        }
+
+        /* Navegación */
+        .nav-buttons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 25px;
+            margin: 0 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #ff9900;
+            color: #fff;
+        }
+
+        /* Estilos generales */
+        #pedidos {
+            padding: 80px 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        h3 {
+            font-size: 2em;
+            color: #444;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        .pedido {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .pedido:hover {
+            transform: translateY(-5px);
+        }
+
+        .pedido img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .pedido-info {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .pedido-title {
+            font-size: 1.6em;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .pedido-price {
+            font-size: 1.4em;
+            color: #ff9900;
+            font-weight: bold;
+        }
+
+        .pedido input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        .pedido button {
+            background-color: #ff9900;
+            color: white;
+            font-size: 1em;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pedido button:hover {
+            background-color: #e68a00;
+        }
+
+        /* Carrito */
+        #carrito {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #carrito h3 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .carrito-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .carrito-item span {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        /* Formulario */
+        .formulario {
+            margin-top: 40px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .formulario input,
+        .formulario textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .formulario button {
+            background-color: #ff9900;
+            color: white;
+            font-size: 1.2em;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .formulario button:hover {
+            background-color: #e68a00;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .pedido {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .pedido img {
+                margin-bottom: 10px;
+            }
+
+            .pedido-info {
+                margin-right: 0;
+            }
+
+            .pedido button {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <div class="nav-buttons">
+        <a href="index.html">Inicio</a>
+        <a href="menu.html">Nuestro Menú</a>
+        <a href="quienes somos.html">Quienes somos</a>
+        <a href="pedidos.html">Pedidos</a>
+    </div>
+
+    <!-- Sección de Pedidos -->
+    <section id="pedidos">
+        <h2>Pedidos Seleccionados</h2>
+
+        <!-- Entrantes -->
+        <h3>Entrantes</h3>
+        <div class="pedido">
+            <img src="img/ensalada-cesar.jpg" alt="César al Carbón">
+            <div class="pedido-info">
+                <p class="pedido-title">César al Carbón</p>
+                <p class="pedido-price">$35.000</p>
+                <input type="number" id="cantidad-cesar" min="1" value="1" />
+                <button onclick="agregarAlCarrito('César al Carbón', 35000, 'cantidad-cesar')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/bandeja-tradicion.jpg" alt="Bandeja Tradición">
+            <div class="pedido-info">
+                <p class="pedido-title">Bandeja Tradición</p>
+                <p class="pedido-price">$38.000</p>
+                <input type="number" id="cantidad-bandeja" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Bandeja Tradición', 38000, 'cantidad-bandeja')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/bruschetta.jpg" alt="Bruschetta al fuego">
+            <div class="pedido-info">
+                <p class="pedido-title">Bruschetta al fuego</p>
+                <p class="pedido-price">$36.000</p>
+                <input type="number" id="cantidad-bruschetta" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Bruschetta al fuego', 36000, 'cantidad-bruschetta')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/tomates-ahumados.jpg" alt="Tomates Ahumados Gourmet">
+            <div class="pedido-info">
+                <p class="pedido-title">Tomates Ahumados Gourmet</p>
+                <p class="pedido-price">$32.000</p>
+                <input type="number" id="cantidad-tomates" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Tomates Ahumados Gourmet', 32000, 'cantidad-tomates')">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <!-- Platos Fuertes -->
+        <h3>Platos Fuertes</h3>
+        <div class="pedido">
+            <img src="img/la-cerdo-crunch.jpg" alt="La Cerdo Crunch">
+            <div class="pedido-info">
+                <p class="pedido-title">La Cerdo Crunch</p>
+                <p class="pedido-price">$60.000</p>
+                <input type="number" id="cantidad-cerdo" min="1" value="1" />
+                <button onclick="agregarAlCarrito('La Cerdo Crunch', 60000, 'cantidad-cerdo')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/solomillo.jpg" alt="Solomillo Ahumado con Toque de Mantequilla">
+            <div class="pedido-info">
+                <p class="pedido-title">Solomillo Ahumado con Toque de Mantequilla</p>
+                <p class="pedido-price">$85.000</p>
+                <input type="number" id="cantidad-solomillo" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Solomillo Ahumado con Toque de Mantequilla', 85000, 'cantidad-solomillo')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/parrillada-corte.jpg" alt="Parrillada de Corte Fino al Fuego Vivo">
+            <div class="pedido-info">
+                <p class="pedido-title">Parrillada de Corte Fino al Fuego Vivo</p>
+                <p class="pedido-price">$52.000</p>
+                <input type="number" id="cantidad-parrillada" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Parrillada de Corte Fino al Fuego Vivo', 52000, 'cantidad-parrillada')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/lomo-cerdo.jpg" alt="Lomo de Cerdo al Romero Braseado">
+            <div class="pedido-info">
+                <p class="pedido-title">Lomo de Cerdo al Romero Braseado</p>
+                <p class="pedido-price">$50.000</p>
+                <input type="number" id="cantidad-lomo" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Lomo de Cerdo al Romero Braseado', 50000, 'cantidad-lomo')">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <!-- Postres -->
+        <h3>Postres</h3>
+        <div class="pedido">
+            <img src="img/tiramisu.jpg" alt="Tiramisú">
+            <div class="pedido-info">
+                <p class="pedido-title">Tiramisú</p>
+                <p class="pedido-price">$20.000</p>
+                <input type="number" id="cantidad-tiramisu" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Tiramisú', 20000, 'cantidad-tiramisu')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/tarta-queso.jpg" alt="Tarta de queso">
+            <div class="pedido-info">
+                <p class="pedido-title">Tarta de queso</p>
+                <p class="pedido-price">$18.000</p>
+                <input type="number" id="cantidad-tarta" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Tarta de queso', 18000, 'cantidad-tarta')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/helado.jpg" alt="Helado Artesanal">
+            <div class="pedido-info">
+                <p class="pedido-title">Helado Artesanal</p>
+                <p class="pedido-price">$15.000</p>
+                <input type="number" id="cantidad-helado" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Helado Artesanal', 15000, 'cantidad-helado')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/mousse-chocolate.jpg" alt="Mousse de chocolate">
+            <div class="pedido-info">
+                <p class="pedido-title">Mousse de chocolate</p>
+                <p class="pedido-price">$22.000</p>
+                <input type="number" id="cantidad-mousse" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Mousse de chocolate', 22000, 'cantidad-mousse')">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <!-- Cócteles -->
+        <h3>Cócteles</h3>
+        <div class="pedido">
+            <img src="img/margarita.jpg" alt="Margarita">
+            <div class="pedido-info">
+                <p class="pedido-title">Margarita</p>
+                <p class="pedido-price">$30.000</p>
+                <input type="number" id="cantidad-margarita" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Margarita', 30000, 'cantidad-margarita')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/mojito.jpg" alt="Mojito">
+            <div class="pedido-info">
+                <p class="pedido-title">Mojito</p>
+                <p class="pedido-price">$28.000</p>
+                <input type="number" id="cantidad-mojito" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Mojito', 28000, 'cantidad-mojito')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/pina-colada.jpg" alt="Piña Colada">
+            <div class="pedido-info">
+                <p class="pedido-title">Piña Colada</p>
+                <p class="pedido-price">$32.000</p>
+                <input type="number" id="cantidad-pina" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Piña Colada', 32000, 'cantidad-pina')">Añadir al carrito</button>
+            </div>
+        </div>
+        <div class="pedido">
+            <img src="img/sangria.jpg" alt="Sangría">
+            <div class="pedido-info">
+                <p class="pedido-title">Sangría</p>
+                <p class="pedido-price">$25.000</p>
+                <input type="number" id="cantidad-sangria" min="1" value="1" />
+                <button onclick="agregarAlCarrito('Sangría', 25000, 'cantidad-sangria')">Añadir al carrito</button>
+            </div>
+        </div>
+
+        <!-- Carrito de Compras -->
+        <div id="carrito">
+            <h3>Carrito</h3>
+            <div id="items-carrito"></div>
+            <p id="total-carrito"></p>
+        </div>
+
+        <!-- Formulario de Datos -->
+        <div class="formulario">
+            <h3>Ingresa tus datos</h3>
+            <input type="text" id="nombre" placeholder="Nombre completo" required />
+            <input type="text" id="direccion" placeholder="Dirección" required />
+            <input type="text" id="telefono" placeholder="Teléfono" required />
+            <button onclick="finalizarPedido()">Finalizar Pedido</button>
+        </div>
+    </section>
+
+    <script>
+        let carrito = [];
+
+        // Función para agregar un producto al carrito
+        function agregarAlCarrito(nombre, precio, cantidadId) {
+            const cantidad = document.getElementById(cantidadId).value;
+            const item = {
+                nombre: nombre,
+                precio: precio,
+                cantidad: cantidad,
+                total: precio * cantidad
+            };
+            carrito.push(item);
+            actualizarCarrito();
+        }
+
+        // Función para actualizar la vista del carrito
+        function actualizarCarrito() {
+            const carritoContenedor = document.getElementById('items-carrito');
+            const totalCarrito = document.getElementById('total-carrito');
+            carritoContenedor.innerHTML = '';
+            let total = 0;
+
+            carrito.forEach(item => {
+                const div = document.createElement('div');
+                div.classList.add('carrito-item');
+                div.innerHTML = `
+                    <span>${item.nombre} x${item.cantidad}</span>
+                    <span>$${item.total}</span>
+                `;
+                carritoContenedor.appendChild(div);
+                total += item.total;
+            });
+
+            totalCarrito.innerHTML = `Total: $${total}`;
+        }
+
+        // Función para finalizar el pedido
+        function finalizarPedido() {
+            const nombre = document.getElementById('nombre').value;
+            const direccion = document.getElementById('direccion').value;
+            const telefono = document.getElementById('telefono').value;
+
+            if (nombre && direccion && telefono) {
+                alert(`¡Gracias, ${nombre}! Tu pedido ha sido recibido. Te lo enviaremos a ${direccion}.`);
+                carrito = [];
+                actualizarCarrito();
+            } else {
+                alert("Por favor, completa todos los campos.");
+            }
+        }
+    </script>
+
+</body>
+</html>

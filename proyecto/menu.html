@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - Sabor Rodríguez</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #fff;
+            color: #000;
+            padding-top: 60px;
+        }
+
+        /* Navegación */
+        .nav-buttons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1c1c1c;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #ff9900;
+            color: #fff;
+        }
+
+        /* Botones del menú */
+        .menu-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .menu-buttons button {
+            background-color: #ff9900;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-buttons button:hover {
+            background-color: #e68a00;
+        }
+
+        /* Sección del Menú */
+        #menu {
+            padding: 40px;
+        }
+
+        .menu-category {
+            display: none;
+        }
+
+        .menu-items {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .dish {
+            position: relative;
+            background-color: #f9f9f9;
+            border-radius: 15px;
+            width: 23%;  /* Ajustado para mostrar 4 por fila */
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 350px; /* Aumentar tamaño de los contenedores */
+        }
+
+        .dish:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .dish img {
+            width: 100%;
+            height: 180px; /* Ajustado para contenedor más grande */
+            object-fit: cover;
+            border-bottom: 3px solid #ff9900;
+        }
+
+        .dish-content {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .dish-title {
+            font-size: 1.5em;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Overlay para descripción */
+        .dish-description {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .dish:hover .dish-description {
+            transform: translateY(0);
+        }
+
+        .dish-price {
+            color: #ff9900;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Pie de página */
+        .footer {
+            background-color: #1c1c1c;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Responsividad */
+        @media (max-width: 1024px) {
+            .dish {
+                width: 45%;  /* 2 por fila en pantallas medianas */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dish {
+                width: 45%;
+                height: 300px; /* Ajuste para pantallas medianas */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dish {
+                width: 100%; /* 1 por fila en pantallas pequeñas */
+                height: 250px; /* Ajuste para pantallas pequeñas */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <div class="nav-buttons">
+        <a href="index.html">Inicio</a>
+        <a href="menu.html">Nuestro Menú</a>
+        <a href="quienes somos.html">Quienes somos</a>
+    </div>
+
+    <!-- Botones del Menú -->
+    <div class="menu-buttons">
+        <button onclick="toggleCategory('entrantes')">Entradas</button>
+        <button onclick="toggleCategory('platos-fuertes')">Platos Fuertes</button>
+        <button onclick="toggleCategory('postres')">Postres</button>
+        <button onclick="toggleCategory('cocteles')">Cocteles</button>
+        <button onclick="toggleCategory('todo')">Todo</button>
+    </div>
+
+    <!-- Sección del Menú -->
+    <section id="menu">
+        <!-- Entrantes -->
+        <div id="entrantes" class="menu-category">
+            <h3 style="font-size: 2em; color: #333;">Entrantes</h3>
+            <div class="menu-items">
+                <div class="dish" data-price="15000">
+                    <img src="img/ensalada-cesar.jpg" alt="César al Carbón">
+                    <div class="dish-content">
+                        <h4 class="dish-title">César al Carbón</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>César al Carbón combina la frescura de la clásica ensalada César con el delicioso sabor
+                             ahumado del pollo al carbón, creando un equilibrio perfecto entre lo fresco y lo asado.</p>
+                        <p class="dish-price">$35.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="38000">
+                    <img src="img\SIMON-PARRILLA.webp" alt="Bandeja Tradició">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Bandeja Tradición</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Bandeja Tradición es una selección de carnes y acompañamientos 
+                             clásicos, perfecta para compartir y disfrutar los auténticos sabores locales.</p>
+                        <p class="dish-price">$38.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="36000">
+                    <img src="img\bruschetta-receta-italiana.jpg" alt="Bruschetta al Fuego">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Bruschetta al Fuego</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>
+                            Bruschetta al Fuego es una deliciosa tostada al carbón, cubierta con jugosos 
+                            tomates cherry asados, que combina un toque rústico con sabores frescos y ahumados en cada bocado.</p>
+                        <p class="dish-price">$36.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="32000">
+                    <img src="img\tomates-rellenos.jpg" alt="Tomates Ahumados Gourmet">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Tomates Ahumados Gourmet</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Deliciosos tomates asados al carbón, rellenos con una mezcla fresca de ingredientes, 
+                            que combinan sabores ahumados y texturas ligeras para un platillo gourmet irresistible.</p>
+                        <p class="dish-price">$32.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platos Fuertes -->
+        <div id="platos-fuertes" class="menu-category">
+            <h3 style="font-size: 2em; color: #333;">Platos Fuertes</h3>
+            <div class="menu-items">
+                <div class="dish" data-price="60000">
+                    <img src="img\imagen hambruguesa.webp" alt="La Cerdo Crunch">
+                    <div class="dish-content">
+                        <h4 class="dish-title">La Cerdo Crunch</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>La Cerdo Crunch es una hamburguesa que combina jugoso cerdo a la parrilla con una crujiente capa
+                             de vegetales frescos, brindando un contraste perfecto entre texturas y sabores en cada bocado.</p>
+                        <p class="dish-price">$60.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="85000">
+                    <img src="C:\Users\ASUS\Documents\universidad cuarto cemestre\aplicacion web\proyecto\img\1.jpg" alt="Solomillo Ahumado con Toque de Mantequill">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Solomillo Ahumado con Toque de Mantequill</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Solomillo Ahumado con Toque de Mantequilla es un tierno corte de solomillo, delicadamente ahumado y 
+                            terminado con una suave capa de mantequilla derretida, que realza su sabor jugoso y elegante.</p>
+                        <p class="dish-price">$85.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="52000">
+                    <img src="img\2.avif" alt="Parrillada de Corte Fino al Fuego Vivo">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Parrillada de Corte Fino al Fuego Vivo</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Parrillada de Corte Fino al Fuego Vivo ofrece jugosos cortes premium de cerdo,
+                             asados al fuego directo, con un toque ahumado y sofisticado</p>
+                        <p class="dish-price">$52.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="50000">
+                    <img src="img\6.jpg" alt="Lomo de Cerdo al Romero Braseado">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Lomo de Cerdo al Romero Braseado</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Jugoso lomo de cerdo asado a la parrilla, sazonado con romero fresco y acompañado de vegetales grillados,
+                             que captura un equilibrio perfecto entre sabores ahumados y frescos. Ideal para un paladar gourmet.</p>
+                        <p class="dish-price">$50.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Postres -->
+        <div id="postres" class="menu-category">
+            <h3 style="font-size: 2em; color: #333;">Postres</h3>
+            <div class="menu-items">
+                <div class="dish" data-price="20000">
+                    <img src="img\tiramiso.webp" alt="Tiramisú">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Tiramisú</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Clásico postre italiano de bizcocho empapado en café, 
+                            crema de mascarpone y cacao en polvo. Ideal para los amantes de los sabores suaves.
+                        </p>
+                        <p class="dish-price">$20.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="18000">
+                    <img src="img\Cheesecake.jpg" alt="Cheesecake">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Cheesecake</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Cremoso pastel de queso sobre una base crujiente, acompañado de una deliciosa 
+                            salsa de frutos rojos que aporta un toque fresco y ligeramente ácido.</p>
+                        <p class="dish-price">$18.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="15000">
+                    <img src="img\helado-artesanal.jpg" alt="Helado Artesanal">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Helado Artesanal</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p> Cremoso y refrescante, elaborado con ingredientes naturales. Disponible en una
+                             amplia variedad de sabores para todos los gustos.</p>
+                        <p class="dish-price">$15.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="22000">
+                    <img src="img\mousse_de_chocolate.jpg" alt="Mousse de Chocolate">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Mousse de Chocolate</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Suave y aireada mousse hecha con auténtico chocolate belga, acompañada de una ligera crema
+                             que realza su intenso sabor.
+                            .</p>
+                        <p class="dish-price">$22.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cocteles -->
+        <div id="cocteles" class="menu-category">
+            <h3 style="font-size: 2em; color: #333;">Cocteles</h3>
+            <div class="menu-items">
+                <div class="dish" data-price="30000">
+                    <img src="img\margarita.jpg" alt="Margarita">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Margarita</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Clásico coctel de tequila y limón.</p>
+                        <p class="dish-price">$30.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="28000">
+                    <img src="img\Mojito.jpg.webp" alt="Mojito">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Mojito</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Coctel refrescante de ron, hierbabuena y lima.</p>
+                        <p class="dish-price">$28.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="32000">
+                    <img src="img\pina-colada.webp" alt="Piña Colada">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Piña Colada</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Coctel cremoso con piña y coco.</p>
+                        <p class="dish-price">$32.000</p>
+                    </div>
+                </div>
+                <div class="dish" data-price="25000">
+                    <img src="img\Sangría.jpeg" alt="Sangría">
+                    <div class="dish-content">
+                        <h4 class="dish-title">Sangría</h4>
+                    </div>
+                    <div class="dish-description">
+                        <p>Vino tinto, frutas y refresco.</p>
+                        <p class="dish-price">$25.000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <p>&copy; 2024 Sabor Rodríguez. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function toggleCategory(category) {
+            const categories = document.querySelectorAll('.menu-category');
+            categories.forEach(cat => {
+                if (category === 'todo') {
+                    cat.style.display = 'block';
+                } else {
+                    cat.style.display = (cat.id === category) ? 'block' : 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>A

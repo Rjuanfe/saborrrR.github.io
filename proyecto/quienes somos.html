@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quiénes somos? - Sabor Rodríguez</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #fff; 
+            color: #333; 
+            padding-top: 60px; 
+        }
+
+        /* Navegación fija */
+        .nav-buttons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1c1c1c;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #ff9900;
+            color: #fff;
+        }
+
+        /* Contenedor de imagen y texto del restaurante */
+        .restaurant-info {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 50px;
+            background-color: #f8f8f8;
+            max-width: 900px;
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .restaurant-info img {
+            width: 40%;
+            border-radius: 10px;
+            margin-right: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .restaurant-info div {
+            width: 60%;
+        }
+
+        .restaurant-info h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #1c1c1c;
+        }
+
+        .restaurant-info p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        /* Contenedor de misión y visión */
+        .mission-vision-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px auto;
+            gap: 20px;
+        }
+
+        .mission-vision {
+            max-width: 350px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .mission-vision h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #1c1c1c;
+        }
+
+        .mission-vision p {
+            font-size: 1em;
+            line-height: 1.5;
+            margin: 5px 0;
+            color: #777;
+        }
+
+        /* Pie de página */
+        .footer {
+            background-color: #1c1c1c;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .restaurant-info {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .restaurant-info img {
+                width: 100%;
+                margin: 0 0 20px 0;
+            }
+
+            .restaurant-info div {
+                width: 100%;
+            }
+
+            .mission-vision-container {
+                flex-direction: column;
+                margin: 20px 10px;
+                gap: 10px;
+            }
+
+            .mission-vision {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegación -->
+    <div class="nav-buttons">
+        <a href="index.html">Inicio</a>
+        <a href="menu.html">Nuestro Menú</a>
+        <a href="quienes somos.html">¿Quiénes somos?</a>
+    </div>
+
+    <!-- Contenedor de información del restaurante -->
+    <section class="restaurant-info">
+        <img src="img/5.jpg" alt="Imagen del restaurante">
+        <div>
+            <h2>Restaurante Sabor Rodríguez</h2>
+            <p>En Sabor Rodríguez, nos dedicamos a ofrecer carne de cerdo de la más alta calidad. Cada plato que servimos es una celebración de la gastronomía, elaborado con ingredientes frescos y un toque especial que refleja nuestra pasión por la comida.</p>
+            <p>Te invitamos a disfrutar de un ambiente acogedor y un servicio excepcional, donde cada visita es una experiencia inolvidable. ¡Descubre el auténtico sabor de nuestra tradición culinaria!</p>
+        </div>
+    </section>
+
+    <!-- Contenedor de misión y visión -->
+    <div class="mission-vision-container">
+        <div class="mission-vision">
+            <h3>Nuestra Misión</h3>
+            <p>Crear momentos memorables a través de una experiencia gastronómica única, destacando la calidad y el amor por la cocina.</p>
+        </div>
+        
+        <div class="mission-vision">
+            <h3>Nuestra Visión</h3>
+            <p>Ser reconocidos como el mejor restaurante de comida de cerdo en la región, ofreciendo innovación y tradición en cada uno de nuestros platillos, y contribuyendo al desarrollo de nuestra comunidad.</p>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <p>&copy; 2024 Sabor Rodríguez. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
